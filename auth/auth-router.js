@@ -4,8 +4,6 @@ const bcrypt = require("bcryptjs");
 
 router.post("/register", (req, res, next) => {});
 
-router.post("/login", (req, res, next) => {
-  const credentials = req.body;
-});
+router.post("/login", (req, res, next) => {});
 
 module.exports = router;
