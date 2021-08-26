@@ -15,7 +15,7 @@ function generateToken(user) {
   };
   //options
   const options = {
-    expiresIn: "2m",
+    expiresIn: "1d",
   };
   //return jwt.sign
   return jwt.sign(payload, process.env.JWT_SECRET, options);
@@ -23,7 +23,9 @@ function generateToken(user) {
 
 function restrictedUser() {
   return (req, res, next) => {
-    const token = req.headers.authorization;
+    const token = req.headers.authorization || req.cookies.token;
+    console.log(req.cookies.token);
+
     // see if there is a token
     //check if it is valid
     //reash the header + payload + secrete and see if it matches our verify signature
@@ -37,6 +39,7 @@ function restrictedUser() {
         } else {
           //token is valid here
           req.decodedToken = decodedToken;
+          req.cookie = token;
           console.log("decodedToken------>", decodedToken);
           next();
         }
