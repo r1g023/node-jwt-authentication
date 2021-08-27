@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const helmet = require("helmet");
-const { restrictedUser } = require("../middleware/global-middleware");
+const { restricted } = require("../middleware/middlewarel-global");
 
 //GLOBACL MIDDLEWARE
 server.use(express.json(), cors(), helmet());
@@ -14,7 +14,7 @@ const authRouter = require("../auth/auth-router");
 
 //SERVER endpoints ---->
 server.use("/", welcomeRouter);
-server.use("/api/users", restrictedUser(), UserRouter);
+server.use("/api/users", restricted(), UserRouter);
 server.use("/api/auth", authRouter);
 
 //middleware for CATCH ERROR on all endpoints of /api/messages

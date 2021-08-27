@@ -12,7 +12,7 @@ router.post("/register", (req, res, next) => {
       const token = generateToken(user);
       user
         ? res.json({ user, token })
-        : res.json({ message: "cant post user" });
+        : res.json({ message: `can't post the user` });
     })
     .catch((err) => next(err));
 });
@@ -21,14 +21,30 @@ router.post("/login", (req, res, next) => {
   const credentials = req.body;
   Users.loginUser({ username: credentials.username })
     .then((user) => {
-      const token = generateToken(user);
       if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        //add token
+        const token = generateToken(user);
+        console.log("LOGIN token -------> ", token);
         res.json({ success: `welcome ${user.username}, have a token!`, token });
       } else {
-        res.json({ no_credentials: `username and password required` });
+        res.json({ no_credentcials: `Please enter correct credentials` });
       }
     })
     .catch((err) => next(err));
 });
+
+// function generateToken(user) {
+//   const payload = {
+//     subID: user.id,
+//     username: user.username,
+//     email: user.email,
+//   };
+//   //options
+//   const options = {
+//     expiresIn: "1d",
+//   };
+//   //return the jwt signature
+//   return jwt.sign(payload, process.env.JWT_SECRET, options);
+// }
 
 module.exports = router;
