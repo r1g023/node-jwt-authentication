@@ -11,11 +11,13 @@ server.use(express.json(), cors(), helmet());
 const welcomeRouter = require("../welcome/welcome-router");
 const UserRouter = require("../users/users-router");
 const authRouter = require("../auth/auth-router");
+const seiyaRouter = require("../seiya/seiya-router");
 
 //SERVER endpoints ---->
 server.use("/", welcomeRouter);
 server.use("/api/users", restrictedUser(), UserRouter);
 server.use("/api/auth", authRouter);
+server.use("/api/seiya", restrictedUser(), seiyaRouter);
 
 //middleware for CATCH ERROR on all endpoints of /api/messages
 server.use((err, req, res, next) => {
