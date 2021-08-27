@@ -16,7 +16,7 @@ function generateToken(user) {
   };
   return jwt.sign(payload, process.env.JWT_SECRET, options);
 }
-
+//restricted
 function restrictedUser() {
   return async (req, res, next) => {
     try {
