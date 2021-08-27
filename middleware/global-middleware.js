@@ -18,7 +18,7 @@ function generateToken(user) {
 
   return jwt.sign(payload, process.env.JWT_SECRET, options);
 }
-
+//restricted
 function restrictedUser() {
   return (req, res, next) => {
     const token = req.headers.authorization;
