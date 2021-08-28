@@ -10,6 +10,7 @@ function generateToken(user) {
     subID: user.id,
     name: user.username,
     email: user.email,
+    lat: Date.now(),
   };
   const options = {
     expiresIn: "1d",
