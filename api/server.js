@@ -13,7 +13,7 @@ const authRouter = require("../auth/auth-router");
 
 //SERVER endpoints ---->
 server.use("/", welcomeRouter);
-server.use("/api/users", restrictedUser(), UserRouter);
+server.use("/api/users", UserRouter);
 server.use("/api/auth", authRouter);
 
 //middleware for CATCH ERROR on all endpoints of /api/messages
