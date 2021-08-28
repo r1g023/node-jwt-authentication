@@ -2,11 +2,15 @@ const router = require("express").Router();
 const axios = require("axios");
 
 router.get("/", (req, res, next) => {
+  const requestOptions = {
+    headers: { accept: "application/json" },
+  };
   axios
-    .get("https://saint-seiya-api.herokuapp.com/api/characters")
+    .get("https://saint-seiya-api.herokuapp.com/api/characters", requestOptions)
     .then((resolve) => {
       let result = [];
-      for (let i = 0; i < resolve.data.length; i++) {
+      let i = 0;
+      for (i; i < resolve.data.length; i++) {
         if (i <= 0) {
           result.push(resolve.data[i]);
         }
