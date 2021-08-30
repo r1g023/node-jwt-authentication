@@ -1,11 +1,14 @@
 const router = require("express").Router();
 const Users = require("../users/users-model");
 const bcrypt = require("bcryptjs");
-const { generateToken } = require("../middleware/global-middleware");
+const {
+  generateToken,
+  restrictedUser,
+} = require("../middlware/global-middleware");
 
 router.post("/register", (req, res, next) => {
   const credentials = req.body;
-  const hashedPassword = bcrypt.hashSync(credentials.password, 10);
+  hashedPassword = bcrypt.hashSync(credentials.password, 10);
   credentials.password = hashedPassword;
   Users.registerUser(credentials)
     .then((user) => {
@@ -20,11 +23,23 @@ router.post("/login", (req, res, next) => {
   Users.loginUser({ username: credentials.username })
     .then((user) => {
       const token = generateToken(user);
-      user && bcrypt.compareSync(credentials.password, user.password)
-        ? res.json({ success: `welcome ${user.username} have a token`, token })
-        : res.json({ message: "invalid credentials" });
+
+      if (user && bcrypt.compareSync(credentials.password, user.password)) {
+        res.cookie("token", token);
+        res.json({ success: `welcome ${user.username} have a token!`, token });
+      } else {
+        res.json({ message: "please validate login" });
+      }
     })
     .catch((err) => next(err));
+});
+
+router.get("/logout", async (req, res, next) => {
+  try {
+    res.clearCookie("token").end();
+  } catch (err) {
+    next(err);
+  }
 });
 
 module.exports = router;
