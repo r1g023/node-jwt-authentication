@@ -4,7 +4,7 @@ exports.up = function (knex) {
       //users
       .alterTable("users", (tbl) => {
         tbl
-          .string("role", 128)
+          .string("role_id", 128)
           .unsigned()
           .references("roles.id")
           .onDelete("RESTRICT")

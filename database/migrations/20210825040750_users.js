@@ -8,5 +8,5 @@ exports.up = function (knex) {
 };
 
 exports.down = function (knex) {
-  return knex.schemadropTableIfExists("users");
+  return knex.schema.dropTableIfExists("users");
 };
