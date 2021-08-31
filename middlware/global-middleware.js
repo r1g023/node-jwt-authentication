@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   generateToken,
   restrictedUser,
+  checkRole,
 };
 
 function generateToken(user) {
@@ -10,6 +11,7 @@ function generateToken(user) {
     subID: user.id,
     name: user.username,
     email: user.email,
+    role: user.role_id,
   };
   const options = {
     expiresIn: "1h",
@@ -28,12 +30,22 @@ function restrictedUser() {
           res.json({ message: "please verify token, its incorrect" });
         } else {
           console.log("decoded token verify correct---->", decoded);
-          req.decoded = decoded;
+          req.decodedToken = decoded;
           next();
         }
       });
     } else {
       res.json({ error: "token does not exist, please enter one" });
+    }
+  };
+}
+
+function checkRole(role) {
+  return (req, res, next) => {
+    if (req.decodedToken.role === role) {
+      next();
+    } else {
+      res.status(403).json("admins only");
     }
   };
 }

@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const helmet = require("helmet");
-const { restrictedUser } = require("../middlware/global-middleware");
+const { restrictedUser, checkRole } = require("../middlware/global-middleware");
 
 //GLOBACL MIDDLEWARE
 server.use(express.json(), cors(), helmet());
