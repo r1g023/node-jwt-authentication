@@ -22,7 +22,7 @@ function generateToken(user) {
 
 function restrictedUser() {
   return (req, res, next) => {
-    const token = req.headers.authorization || req.cookies.token;
+    const token = req.headers.authorization;
     if (token) {
       jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
         if (err) {
@@ -40,12 +40,20 @@ function restrictedUser() {
   };
 }
 
-function checkRole(role) {
+function checkRole(user) {
   return (req, res, next) => {
-    if (req.decodedToken.role === role) {
+    if (req.decodedToken.role === user) {
       next();
     } else {
-      res.status(403).json("admins only");
+      console.log(
+        "not authorized",
+        "req.decodedToken.role----->",
+        req.decodedToken.role,
+        req.decodedToken
+      );
+      res
+        .status(403)
+        .json({ message: "you're not an admin, don't have access to this" });
     }
   };
 }
