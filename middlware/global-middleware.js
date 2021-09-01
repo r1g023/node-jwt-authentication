@@ -40,17 +40,20 @@ function restrictedUser() {
   };
 }
 
-function checkRole() {
+function checkRole(user) {
   return (req, res, next) => {
-    if (req.decodedToken.role === 1) {
+    if (req.decodedToken.role === user) {
       next();
     } else {
       console.log(
         "not authorized",
         "req.decodedToken.role----->",
-        req.decodedToken.role
+        req.decodedToken.role,
+        req.decodedToken
       );
-      res.status(403).json("you're not an admin, don't have access to this");
+      res
+        .status(403)
+        .json({ message: "you're not an admin, don't have access to this" });
     }
   };
 }

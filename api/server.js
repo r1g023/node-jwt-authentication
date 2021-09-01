@@ -15,7 +15,7 @@ const seiyaRouter = require("../saintSeiya/seiya-router");
 
 //SERVER endpoints ---->
 server.use("/", welcomeRouter);
-server.use("/api/users", restrictedUser(), checkRole(), UserRouter);
+server.use("/api/users", restrictedUser(), checkRole("2"), UserRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/seiya", restrictedUser(), checkRole(), seiyaRouter);
 
