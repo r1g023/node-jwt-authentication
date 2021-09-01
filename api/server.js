@@ -15,9 +15,9 @@ const seiyaRouter = require("../saintSeiya/seiya-router");
 
 //SERVER endpoints ---->
 server.use("/", welcomeRouter);
-server.use("/api/users", restrictedUser(), UserRouter);
+server.use("/api/users", restrictedUser(), checkRole(), UserRouter);
 server.use("/api/auth", authRouter);
-server.use("/api/seiya", restrictedUser(), seiyaRouter);
+server.use("/api/seiya", restrictedUser(), checkRole(), seiyaRouter);
 
 //middleware for CATCH ERROR on all endpoints of /api/messages
 server.use((err, req, res, next) => {
