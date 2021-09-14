@@ -1,3 +1,5 @@
+//will implement postgreSQL
+
 module.exports = {
   development: {
     client: "sqlite3",
