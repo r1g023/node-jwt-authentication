@@ -7,19 +7,13 @@ exports.seed = function (knex) {
       email: faker.internet.email(),
       username: faker.name.findName(),
       password: bcrypt.hashSync("test1", 10),
-      role_id: 1,
+      role: "admin",
     },
     {
       email: faker.internet.email(),
       username: faker.name.findName(),
       password: bcrypt.hashSync("test1", 10),
-      role_id: 1,
-    },
-    {
-      email: faker.internet.email(),
-      username: faker.name.findName(),
-      password: bcrypt.hashSync("test1", 10),
-      role_id: 2,
+      role: "user",
     },
   ]);
 };
