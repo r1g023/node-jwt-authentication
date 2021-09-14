@@ -11,7 +11,7 @@ function generateToken(user) {
     subID: user.id,
     name: user.username,
     email: user.email,
-    role: user.role_id,
+    role: user.role,
   };
   const options = {
     expiresIn: "1h",
@@ -42,7 +42,7 @@ function restrictedUser() {
 
 function checkRole(user) {
   return (req, res, next) => {
-    if (req.decodedToken.role === user) {
+    if (req.decodedToken.role === "admin") {
       next();
     } else {
       console.log(
