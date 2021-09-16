@@ -17,11 +17,7 @@ function getById(id) {
 
 //---------------------AUTH----------------------/
 function registerUser(data) {
-  return db("users")
-    .insert(data, "ids")
-    .then((ids) => {
-      return db("users").where({ id: ids }).first();
-    });
+  return db("users").insert(data);
 }
 
 function loginUser(filter) {
