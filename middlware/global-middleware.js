@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 module.exports = {
   generateToken,
   restrictedUser,
-  checkRole,
+  // checkRole,
 };
 
 function generateToken(user) {
@@ -40,20 +40,20 @@ function restrictedUser() {
   };
 }
 
-function checkRole(user) {
-  return (req, res, next) => {
-    if (req.decodedToken.role === "admin") {
-      next();
-    } else {
-      console.log(
-        "not authorized",
-        "req.decodedToken.role----->",
-        req.decodedToken.role,
-        req.decodedToken
-      );
-      res
-        .status(403)
-        .json({ message: "you're not an admin, don't have access to this" });
-    }
-  };
-}
+// function checkRole(user) {
+//   return (req, res, next) => {
+//     if (req.decodedToken.role === "admin") {
+//       next();
+//     } else {
+//       console.log(
+//         "not authorized",
+//         "req.decodedToken.role----->",
+//         req.decodedToken.role,
+//         req.decodedToken
+//       );
+//       res
+//         .status(403)
+//         .json({ message: "you're not an admin, don't have access to this" });
+//     }
+//   };
+// }
