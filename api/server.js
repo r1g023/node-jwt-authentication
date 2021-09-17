@@ -18,6 +18,7 @@ server.use("/", welcomeRouter);
 server.use("/api/users", UserRouter);
 server.use("/api/auth", authRouter);
 server.use("/api/seiya", restrictedUser(), seiyaRouter);
+//
 
 //middleware for CATCH ERROR on all endpoints of /api/messages
 server.use((err, req, res, next) => {
