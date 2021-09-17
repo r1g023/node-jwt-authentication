@@ -16,8 +16,18 @@ function getById(id) {
 }
 
 //---------------------AUTH----------------------/
-function registerUser(data) {
-  return db("users").insert(data);
+async function registerUser(user) {
+  // WITH POSTGRES WE CAN PASS A "RETURNING ARRAY" AS 2ND ARGUMENT TO knex.insert/update
+  // AND OBTAIN WHATEVER COLUMNS WE NEED FROM THE NEWLY CREATED/UPDATED RECORD
+  // UNLIKE SQLITE WHICH FORCES US DO DO A 2ND DB CALL
+  const [newUserObject] = await db("users").insert(user, [
+    "id",
+    "email",
+    "username",
+    "password",
+    "role",
+  ]);
+  return newUserObject;
 }
 
 function loginUser(filter) {
