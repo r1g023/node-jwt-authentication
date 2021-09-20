@@ -1,46 +1,9 @@
 require("dotenv").config();
 const { Client } = require("pg");
 
-<<<<<<< HEAD
 if (process.env.DATABASE_URL) {
   pg.defaults.ssl = { rejectUnauthorized: false };
 }
-=======
-// const client = new Client({
-//   connectionString: process.env.DATABASE_URL,
-//   ssl: {
-//     rejectUnauthorized: false,
-//   },
-// });
-
-// client.connect();
-
-// client.query(
-//   "SELECT table_schema,table_name FROM information_schema.tables;",
-//   (err, res) => {
-//     if (err) throw err;
-//     for (let row of res.rows) {
-//       console.log(JSON.stringify(row));
-//     }
-//     client.end();
-//   }
-// );
-
-const client = new Client({
-  connectionString: process.env.secretPG,
-  ssl: true,
-});
-
-client.connect();
-
-client.query("SELECT * FROM users;", (err, res) => {
-  if (err) throw err;
-  for (let row of res.rows) {
-    console.log(JSON.stringify(row));
-  }
-  client.end();
-});
->>>>>>> e3a82148d02e7e04bf5181261065d5f64015560e
 
 const sharedConfig = {
   client: "pg",
