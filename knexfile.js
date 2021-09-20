@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { Client } = require("pg");
+const pg = require("pg");
 
 if (process.env.DATABASE_URL) {
   pg.defaults.ssl = { rejectUnauthorized: false };
