@@ -2,7 +2,7 @@ const express = require("express");
 const server = express();
 const cors = require("cors");
 const helmet = require("helmet");
-const { restrictedUser } = require("../middlware/global-middleware");
+const { restrictedUser, checkRole } = require("../middlware/global-middleware");
 
 //GLOBACL MIDDLEWARE
 server.use(express.json(), cors(), helmet());
@@ -17,7 +17,7 @@ const seiyaRouter = require("../saintSeiya/seiya-router");
 server.use("/", welcomeRouter);
 server.use("/api/users", restrictedUser(), UserRouter);
 server.use("/api/auth", authRouter);
-server.use("/api/seiya", restrictedUser(), seiyaRouter);
+server.use("/api/seiya", restrictedUser(), checkRole(), seiyaRouter);
 //
 
 //middleware for CATCH ERROR on all endpoints of /api/messages
