@@ -4,9 +4,11 @@ const router = require("express").Router();
 const redis = require("redis");
 const PORT_REDIS = 6379;
 const redisClient = redis.createClient(PORT_REDIS);
+
 const set = (key, value) => {
   redisClient.set(key, JSON.stringify(value));
 };
+
 const get = (req, res, next) => {
   let key = req.route.path;
   redisClient.get(key, (error, data) => {
@@ -15,6 +17,8 @@ const get = (req, res, next) => {
     else next();
   });
 };
+
+///GET
 router.get("/", get, (req, res, next) => {
   let requestOptions = {
     headers: { accept: "application/json" },
